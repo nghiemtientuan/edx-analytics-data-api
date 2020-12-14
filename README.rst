@@ -1,31 +1,24 @@
 edX Analytics API Server |build-status| |coverage-status|
 =========================================================
 
-This repository includes the Django server for the API as well as the
-API package itself. The client is hosted at
-https://github.com/edx/edx-analytics-data-api-client.
-
-The enterprise client is hosted at https://github.com/edx/frontend-app-admin-portal.
-
-License
--------
-
-The code in this repository is licensed under version 3 of the AGPL
-unless otherwise noted.
-
-Please see ``LICENSE.txt`` for details.
-
 Getting Started
 ---------------
-#. Create a virtual environment and activate it.
+1. Create a virtual environment and activate it.
 
-#. Install the requirements:
+    ::
+
+        $ pip install virtualenv
+        $ virtualenv venv
+        $ virtualenv -p python3 venv
+        $ source venv/bin/activate
+
+2. Install the requirements:
 
    ::
 
        $ make develop
 
-#. Setup the databases:
+3. Setup the databases:
 
    ::
 
@@ -48,14 +41,13 @@ Getting Started
 
       $ make test.run_elasticsearch
 
-#. Create a user and authentication token. Note that the user will be
-   created if one does not exist.
+6. Create a user and authentication token. Note that the user will be created if one does not exist.
 
-   ::
+    ::
 
-       $ ./manage.py set_api_key <username> <token>
+        $ ./manage.py set_api_key <username> <token>
 
-#. Run the server:
+5. Run the server:
 
    ::
 
@@ -63,16 +55,15 @@ Getting Started
 
 .. _JDK 1.8: https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 
-Development with edx-enterprise-data
-------------------------------------
-If you need to make changes to ``edx-enterprise-data`` and have them reflected when you run the ``edx-analytics-data-api`` server,
-you can follow these steps. If you do not intend to make changes to ``edx-enterprise-data``, you can skip this section.
+Setup Authentication & Authorization
+------------------------------
 
-#. Recommended: Install this repo into a subfolder of your working directory. Within that subfolder create an ``src`` folder.
-#. Clone the `edx-enterprise-data <https://github.com/edx/edx-enterprise-data>`_ repo into the ``src`` folder.
-#. ``cd`` into your ``edx-data-analytics-api`` folder and activate your virtualenv.
-#. Run ``pip install -e ./src/edx-enterprise-data``.
-#. Run the server as per instructions above. Changes to ``edx-enterprise-data`` should be picked up by the server.
+1. Run command to create super user
+
+    ::
+
+        $ ./manage.py createsuperuser
+
 
 Loading Data
 ------------
@@ -87,6 +78,17 @@ database.
         $ make loaddata
 
 Additional management commands for creating data can be found in `edx-enterprise-data <https://github.com/edx/edx-enterprise-data>`_
+
+Development with edx-enterprise-data
+------------------------------------
+If you need to make changes to ``edx-enterprise-data`` and have them reflected when you run the ``edx-analytics-data-api`` server,
+you can follow these steps. If you do not intend to make changes to ``edx-enterprise-data``, you can skip this section.
+
+#. Recommended: Install this repo into a subfolder of your working directory. Within that subfolder create an ``src`` folder.
+#. Clone the `edx-enterprise-data <https://github.com/edx/edx-enterprise-data>`_ repo into the ``src`` folder.
+#. ``cd`` into your ``edx-data-analytics-api`` folder and activate your virtualenv.
+#. Run ``pip install -e ./src/edx-enterprise-data``.
+#. Run the server as per instructions above. Changes to ``edx-enterprise-data`` should be picked up by the server.
 
 Loading Video Data
 ~~~~~~~~~~~~~~~~~~
@@ -164,26 +166,3 @@ using it here.
 
 Note: the access tokens expire in one year so you should only have to follow the
 above steps once a year.
-
-Running Tests
--------------
-
-Run ``make validate`` install the requirements, run the tests, and run
-lint.
-
-How to Contribute
------------------
-
-Contributions are very welcome, but for legal reasons, you must submit a
-signed `individual contributor’s agreement`_ before we can accept your
-contribution. See our `CONTRIBUTING`_ file for more information – it
-also contains guidelines for how to maintain high code quality, which
-will make your contribution more likely to be accepted.
-
-.. _individual contributor’s agreement: http://code.edx.org/individual-contributor-agreement.pdf
-.. _CONTRIBUTING: https://github.com/edx/edx-platform/blob/master/CONTRIBUTING.rst
-
-.. |build-status| image:: https://travis-ci.org/edx/edx-analytics-data-api.svg?branch=master
-   :target: https://travis-ci.org/edx/edx-analytics-data-api
-.. |coverage-status| image:: https://img.shields.io/codecov/c/github/edx/edx-analytics-data-api/master.svg
-   :target: https://codecov.io/gh/edx/edx-analytics-data-api
