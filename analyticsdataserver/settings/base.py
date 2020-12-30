@@ -35,7 +35,7 @@ DEBUG = False
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('Your Name', 'your_email@example.com'),
+    ('edx', 'edx@example.com'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
@@ -52,23 +52,23 @@ DEFAULT_MYSQL_OPTIONS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',
         'NAME': 'analytics-api',
-        'OPTIONS': DEFAULT_MYSQL_OPTIONS,
-        'PASSWORD': 'password',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '172.18.0.4',# docker inspect edx.devstack-juniper.master.mysql | grep -e "IPAddress"
         'PORT': '3306',
-        'USER': 'api001',
+        'OPTIONS': DEFAULT_MYSQL_OPTIONS,
         'ATOMIC_REQUESTS': False,
     },
-    'reports': {
+    'analytics': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',
         'NAME': 'reports',
-        'OPTIONS': DEFAULT_MYSQL_OPTIONS,
-        'PASSWORD': 'password',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '172.18.0.4',# docker inspect edx.devstack-juniper.master.mysql | grep -e "IPAddress"
         'PORT': '3306',
-        'USER': 'reports001',
-    }
+'OPTIONS': DEFAULT_MYSQL_OPTIONS,
+    },
 }
 ########## END DATABASE CONFIGURATION
 
@@ -139,7 +139,7 @@ SECRET_KEY = r"g)rke*$-ox1yursa_l!rjnh6tn!pd+qs^8i03xb0!#50#zhb%k"
 ########## SITE CONFIGURATION
 # Hosts/domain names that are valid for this site
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 ########## END SITE CONFIGURATION
 
 
@@ -352,10 +352,10 @@ REST_FRAMEWORK = {
 ANALYTICS_DATABASE = 'default'
 DATABASE_ROUTERS = ['analyticsdataserver.router.AnalyticsApiRouter']
 
-LMS_BASE_URL = None
+LMS_BASE_URL = 'http://localhost:18000'
 
 # base url to generate link to user api
-LMS_USER_ACCOUNT_BASE_URL = None
+LMS_USER_ACCOUNT_BASE_URL = 'http://localhost:18000'
 
 # settings for report downloads
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'

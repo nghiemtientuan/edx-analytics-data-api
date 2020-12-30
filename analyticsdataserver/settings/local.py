@@ -25,21 +25,21 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': normpath(join(DJANGO_ROOT, 'default.db')),
-        'USER': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'analytics-api',
+        'USER': 'root',
         'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'HOST': '172.18.0.4',# docker inspect edx.devstack-juniper.master.mysql | grep -e "IPAddress"
+        'PORT': '3306',
     },
     'analytics': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': normpath(join(DJANGO_ROOT, 'analytics.db')),
-        'USER': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'reports',
+        'USER': 'root',
         'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    }
+        'HOST': '172.18.0.4',# docker inspect edx.devstack-juniper.master.mysql | grep -e "IPAddress"
+        'PORT': '3306',
+    },
 }
 ########## END DATABASE CONFIGURATION
 
@@ -74,7 +74,7 @@ COURSE_BLOCK_API_AUTH_TOKEN = 'paste auth token here'  # see README for instruct
 # However, in Django 1.10.3, the HTTP_HOST header of requests started to be checked against the ALLOWED_HOSTS setting
 # even in DEBUG=True mode. Here, we add the Docker service name "analyticsapi" to the default set of local allowed
 # hosts.
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '::1', 'analyticsapi', 'host.docker.internal']
+ALLOWED_HOSTS = ['*']
 
 JWT_AUTH.update({
     'JWT_SECRET_KEY': 'lms-secret',

@@ -11,19 +11,19 @@ from analyticsdataserver.settings.local import *
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': normpath(join(DJANGO_ROOT, 'default.db')),
-        'USER': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'analytics-api',
+        'USER': 'root',
         'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'HOST': '172.18.0.4',# docker inspect edx.devstack-juniper.master.mysql | grep -e "IPAddress"
+        'PORT': '3306',
     },
     'analytics': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'reports_2_0',
-        'USER': 'readonly001',
-        'PASSWORD': 'meringues unfreehold sisterize morsing',
-        'HOST': 'stage-edx-analytics-report-rds.edx.org',
+        'NAME': 'reports',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '172.18.0.4',# docker inspect edx.devstack-juniper.master.mysql | grep -e "IPAddress"
         'PORT': '3306',
-    }
+    },
 }
